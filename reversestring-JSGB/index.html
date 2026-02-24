@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reverse String</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0d0d0d;
+        --surface: #161616;
+        --border: #2a2a2a;
+        --accent: #f5c542;
+        --accent-dk: #c49a18;
+        --text: #f0f0f0;
+        --muted: #888;
+        --radius: 16px;
+      }
+
+      body {
+        min-height: 100vh;
+        background-color: var(--bg);
+        background-image: radial-gradient(
+          ellipse 80% 60% at 50% -10%,
+          rgba(245, 197, 66, 0.12) 0%,
+          transparent 70%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "DM Mono", monospace;
+        color: var(--text);
+        padding: 2rem;
+      }
+
+      /* ── Card ───────────────────────────────────────────── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 3rem 3.5rem;
+        width: 100%;
+        max-width: 560px;
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.04),
+          0 24px 64px rgba(0, 0, 0, 0.6);
+        animation: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── Header ─────────────────────────────────────────── */
+      .badge {
+        display: inline-block;
+        background: rgba(245, 197, 66, 0.12);
+        border: 1px solid rgba(245, 197, 66, 0.3);
+        color: var(--accent);
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.75rem;
+        border-radius: 999px;
+        margin-bottom: 1.25rem;
+      }
+
+      h1 {
+        font-family: "Syne", sans-serif;
+        font-size: 2.25rem;
+        font-weight: 800;
+        line-height: 1.1;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      h1 span {
+        color: var(--accent);
+      }
+
+      .subtitle {
+        font-size: 0.82rem;
+        color: var(--muted);
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+      }
+
+      /* ── Input ──────────────────────────────────────────── */
+      .field-label {
+        display: block;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.55rem;
+      }
+
+      #inputText {
+        width: 100%;
+        background: #111;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        font-family: "DM Mono", monospace;
+        font-size: 1.1rem;
+        color: var(--text);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        letter-spacing: 0.04em;
+      }
+
+      #inputText::placeholder {
+        color: #3a3a3a;
+      }
+
+      #inputText:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.15);
+      }
+
+      /* ── Button ─────────────────────────────────────────── */
+      #reverseBtn {
+        margin-top: 1.25rem;
+        width: 100%;
+        padding: 1rem;
+        background: var(--accent);
+        color: #0d0d0d;
+        border: none;
+        border-radius: 10px;
+        font-family: "Syne", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition:
+          background 0.2s,
+          transform 0.15s,
+          box-shadow 0.2s;
+      }
+
+      #reverseBtn::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0);
+        transition: background 0.2s;
+      }
+
+      #reverseBtn:hover {
+        background: #ffd355;
+        box-shadow: 0 6px 28px rgba(245, 197, 66, 0.35);
+        transform: translateY(-2px);
+      }
+
+      #reverseBtn:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+
+      /* ── Output ─────────────────────────────────────────── */
+      .output-wrap {
+        margin-top: 2rem;
+        border-top: 1px solid var(--border);
+        padding-top: 1.75rem;
+      }
+
+      .output-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+
+      #outputText {
+        font-family: "Syne", sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent);
+        word-break: break-all;
+        min-height: 2.5rem;
+        letter-spacing: 0.03em;
+        transition: opacity 0.25s;
+      }
+
+      #outputText.empty {
+        font-family: "DM Mono", monospace;
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: #2e2e2e;
+        font-style: italic;
+      }
+
+      /* pop animation on result update */
+      @keyframes pop {
+        0% {
+          transform: scale(0.96);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      #outputText.pop {
+        animation: pop 0.3s ease both;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="badge">Utility Tool</div>
+      <h1>String <span>Reverser</span></h1>
+      <p class="subtitle">
+        Type any text below and instantly see it flipped character by character.
+      </p>
+
+      <label class="field-label" for="inputText">Your text</label>
+      <input
+        id="inputText"
+        type="text"
+        placeholder="e.g. AI4Devs"
+        autocomplete="off"
+        spellcheck="false"
+      />
+
+      <button id="reverseBtn">↔ Reverse String</button>
+
+      <div class="output-wrap">
+        <p class="output-label">Result</p>
+        <div id="outputText" class="empty">Result will appear here…</div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
