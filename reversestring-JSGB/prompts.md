@@ -34,3 +34,17 @@ Amazing UI: Design a highly polished, modern, and beautiful interface. Center th
 Crystal Clear Visibility: Accessibility and legibility are the highest priority. Ensure there is extreme contrast between the text and the background. Use large, easy-to-read modern web fonts, large input fields, and bold, clearly visible output text so the user doesn't have to squint.
 
 Provide the code in clearly labeled code blocks for index.html and script.js so I can easily copy them.
+
+# Second Prompt, advance task:
+
+This is excellent. Now, I want to iterate on this code to reach an advanced level. >
+Please update the script.js and the <style> block in index.html to implement the following three new features:
+
+Real-Time Reversal: The reversed string must now generate and display in real-time as the user types, without needing to click the button. Listen for the text input's input event.
+
+Conditional Button Visibility: The reversal button should be hidden by default. It must only appear (smoothly fade in/appear for a great UI) when the input text has strictly more than 3 characters.
+
+Perfect Emoji Support (Crucial): The reversal logic must correctly handle emojis without breaking them. Do not use a simple .split('') because it destroys surrogate pairs and zero-width joiner (ZWJ) sequences. Use a modern, robust approach like Intl.Segmenter to split the string safely before reversing it.
+
+Output:
+Please provide the updated HTML (with any new CSS styles for the button transition) and the completely updated script.js file. Continue to maintain the amazing, high-contrast UI we established.

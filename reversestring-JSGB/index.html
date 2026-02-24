@@ -158,15 +158,28 @@
         transition:
           background 0.2s,
           transform 0.15s,
-          box-shadow 0.2s;
+          box-shadow 0.2s,
+          opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          margin-top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+        /* Hidden by default — collapsed with no pointer events */
+        opacity: 0;
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        pointer-events: none;
       }
 
-      #reverseBtn::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(255, 255, 255, 0);
-        transition: background 0.2s;
+      /* Visible state toggled by JS */
+      #reverseBtn.visible {
+        opacity: 1;
+        max-height: 4rem;
+        padding: 1rem;
+        margin-top: 1.25rem;
+        pointer-events: auto;
       }
 
       #reverseBtn:hover {
@@ -193,6 +206,20 @@
         text-transform: uppercase;
         color: var(--muted);
         margin-bottom: 0.75rem;
+      }
+
+      /* Character count hint */
+      .char-hint {
+        font-size: 0.7rem;
+        color: var(--muted);
+        text-align: right;
+        margin-top: 0.4rem;
+        min-height: 1em;
+        transition: color 0.2s;
+      }
+
+      .char-hint.near {
+        color: var(--accent);
       }
 
       #outputText {
@@ -239,23 +266,25 @@
       <div class="badge">Utility Tool</div>
       <h1>String <span>Reverser</span></h1>
       <p class="subtitle">
-        Type any text below and instantly see it flipped character by character.
+        Type any text below — including emojis — and watch it reverse in
+        real-time.
       </p>
 
       <label class="field-label" for="inputText">Your text</label>
       <input
         id="inputText"
         type="text"
-        placeholder="e.g. AI4Devs"
+        placeholder="e.g. AI4Devs 🚀"
         autocomplete="off"
         spellcheck="false"
       />
+      <div class="char-hint" id="charHint"></div>
 
       <button id="reverseBtn">↔ Reverse String</button>
 
       <div class="output-wrap">
         <p class="output-label">Result</p>
-        <div id="outputText" class="empty">Result will appear here…</div>
+        <div id="outputText" class="empty">Start typing to see the magic…</div>
       </div>
     </div>
 
